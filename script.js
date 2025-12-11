@@ -1,35 +1,31 @@
-document.getElementById("checkBtn").addEventListener("click", checkPassword);
+function checkPasswordStrength(password) {
+    let hasNumber = false;
+    let hasSpecial = false;
+    let specialChars = "!@#$%^&*";
 
-function checkPassword() {
-    const password = document.getElementById("passwordInput").value;
-    const result = document.getElementById("result");
-
-    let hasNumber = /\d/.test(password);
-    let hasSpecial = /[!@#$%^&*]/.test(password);
-
-    if (password.length < 8) {
-        result.textContent = "Password rejected: must be at least 8 characters.";
-        result.className = "message error";
-        return;
+    // Check for numbers and special characters using a loop
+    for (let char of password) {
+        if (!isNaN(char) && char !== " ") {
+            hasNumber = true;
+        }
+        if (specialChars.includes(char)) {
+            hasSpecial = true;
+        }
     }
 
-    if (!hasNumber) {
-        result.textContent = "Password rejected: must contain at least one number.";
-        result.className = "message error";
-        return;
-    }
+    const isLongEnough = password.length >= 8;
 
-    if (!hasSpecial) {
-        result.textContent = "Password rejected: must contain at least one special character (!@#$%^&*).";
-        result.className = "message error";
-        return;
-    }
-
-    if (password.length >= 12) {
-        result.textContent = "Strong password";
-        result.className = "message strong";
-    } else {
-        result.textContent = "Medium password";
-        result.className = "message medium";
+    if (isLongEnough && hasNumber && hasSpecial) {
+        console.log("Strong Password");
+    } 
+    else if (isLongEnough && (hasNumber || hasSpecial)) {
+        console.log("Medium Password");
+    } 
+    else {
+        console.log("Weak Password");
     }
 }
+
+checkPasswordStrength("Hello123!");   
+checkPasswordStrength("Hello123");   
+checkPasswordStrength("Hi12");        
