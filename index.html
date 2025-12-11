@@ -1,1 +1,19 @@
-<script src="password.js"> </script>
+<!DOCTYPE html>
+<html>
+<body>
+<input id="password" type="password" placeholder="Enter password">
+<button onclick="checkPassword()">Check</button>
+<p id="msg"></p>
+
+<script>
+function checkPassword() {
+    let p = document.getElementById("password").value;
+    let msg = document.getElementById("msg");
+    if (p.length < 8) return msg.textContent = "Min 8 characters";
+    if (!/\d/.test(p)) return msg.textContent = "Must contain number";
+    if (!/[!@#$%^&*]/.test(p)) return msg.textContent = "Must contain special char";
+    msg.textContent = p.length >= 12 ? "Strong" : "Medium";
+}
+</script>
+</body>
+</html>
